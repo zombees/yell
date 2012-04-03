@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Yell by rudionrails</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Yell</h1>
+<p>Yell - Your Extensible Logging Library</p>
+        <p class="view"><a href="https://github.com/rudionrails/yell">View the Project on GitHub <small>rudionrails/yell</small></a></p>
+        <ul>
+          <li><a href="https://github.com/rudionrails/yell/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rudionrails/yell/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rudionrails/yell">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><strong>Yell - Your Extensible Logging Library</strong></p>
+
+<p><a href="http://travis-ci.org/rudionrails/yell"><img src="https://secure.travis-ci.org/rudionrails/yell.png?branch=master" alt="Build Status"></a></p>
+
+<p>Yell works and is tested with ruby 1.8.7, 1.9.x, jruby 1.8 and 1.9 mode, rubinius 1.8 and 1.9 as well as ree.</p>
+
+<h2>Installation</h2>
+
+<p>System wide:</p>
+
+<div class="highlight">
+<pre><span class="go">gem install yell</span>
+</pre>
+</div>
+
+
+<p>Or in your Gemfile:</p>
+
+<div class="highlight">
+<pre><span class="n">gem</span> <span class="s2">"yell"</span>
+</pre>
+</div>
+
+
+<h2>Usage</h2>
+
+<p>On the basics, you can use Yell just like any other logging library with a more 
+sophisticated message formatter.</p>
+
+<div class="highlight">
+<pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="no">STDOUT</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Hello World"</span>
+<span class="c1">#=&gt; "2012-02-29T09:30:00+01:00 [ INFO] 65784 : Hello World"</span>
+<span class="c1">#    ^                         ^       ^       ^</span>
+<span class="c1">#    ISO8601 Timestamp         Level   Pid     Message</span>
+</pre>
+</div>
+
+
+<p>The strength of Yell, however, comes when using multiple adapters. The already built-in 
+ones are IO-based and require no further configuration. Also, there are additional ones 
+available as separate gems. Please consult the <a href="https://github.com/rudionrails/yell/wiki">wiki</a> 
+on that - they are listed there.</p>
+
+<p>The standard adapters are:</p>
+
+<p><code>:stdout</code> : Messages will be written to STDOUT<br><code>:stderr</code> : Messages will be written to STDERR<br><code>:file</code> : Messages will be written to a file<br><code>:datefile</code> : Messages will be written to a timestamped file  </p>
+
+<p>Here are some short examples on how to combine them:</p>
+
+<h5>Example: Notice messages go into <code>STDOUT</code> and error messages into <code>STDERR</code>
+</h5>
+
+<div class="highlight">
+<pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span>
+  <span class="n">l</span><span class="o">.</span><span class="n">adapter</span> <span class="no">STDOUT</span><span class="p">,</span> <span class="ss">:level</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:debug</span><span class="p">,</span> <span class="ss">:info</span><span class="p">,</span> <span class="ss">:warn</span><span class="o">]</span>
+  <span class="n">l</span><span class="o">.</span><span class="n">adapter</span> <span class="no">STDERR</span><span class="p">,</span> <span class="ss">:level</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:fatal</span><span class="o">]</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<h5>Example: Typical production Logger</h5>
+
+<p>We setup a logger that starts passing messages at the <code>:info</code> level. Severities 
+below <code>:error</code> go into the 'production.log', whereas anything higher is written 
+into the 'error.log'.</p>
+
+<div class="highlight">
+<pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span>
+  <span class="n">l</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="ss">:info</span> <span class="c1"># will only pass :info and above to the adapters</span>
+
+  <span class="n">l</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:datefile</span><span class="p">,</span> <span class="s1">'production.log'</span><span class="p">,</span> <span class="ss">:level</span> <span class="o">=&gt;</span> <span class="no">Yell</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">lte</span><span class="p">(</span><span class="ss">:warn</span><span class="p">)</span>
+  <span class="n">l</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:datefile</span><span class="p">,</span> <span class="s1">'error.log'</span><span class="p">,</span> <span class="ss">:level</span> <span class="o">=&gt;</span> <span class="no">Yell</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">gte</span><span class="p">(</span><span class="ss">:error</span><span class="p">)</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<h2>Further Readings</h2>
+
+<p><a href="https://github.com/rudionrails/yell/wiki/101-setting-the-log-level">How To: Setting The Log Level</a><br><a href="https://github.com/rudionrails/yell/wiki/101-formatting-log-messages">How To: Formatting Log Messages</a><br><a href="https://github.com/rudionrails/yell/wiki/101-using-adapters">How To: Using Adapters</a><br><a href="https://github.com/rudionrails/yell/wiki/101-the-datefile-adapter">How To: The Datefile Adapter</a><br><a href="https://github.com/rudionrails/yell/wiki/101-different-adapters-for-different-log-levels">How To: Different Adapters for Different Log Levels</a>  </p>
+
+<p>You can find further examples and additional adapters in the <a href="https://github.com/rudionrails/yell/wiki">wiki</a>.
+or have a look into the examples folder.</p>
+
+<p>Copyright © 2011-2012 Rudolf Schmidt, released under the MIT license.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/rudionrails">rudionrails</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
