@@ -1,71 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Yell by rudionrails</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Yell</h1>
-<p>Yell - Your Extensible Logging Library</p>
-        <p class="view"><a href="https://github.com/rudionrails/yell">View the Project on GitHub <small>rudionrails/yell</small></a></p>
-        <ul>
-          <li><a href="https://github.com/rudionrails/yell/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/rudionrails/yell/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/rudionrails/yell">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <p><strong>Yell - Your Extensible Logging Library</strong></p>
 
-<p><a href="http://travis-ci.org/rudionrails/yell"><img src="https://secure.travis-ci.org/rudionrails/yell.png?branch=master" alt="Build Status"></a></p>
+    <title>Yell by rudionrails</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Yell</h1>
+        <h2>Yell - Your Extensible Logging Library</h2>
+        <a href="https://github.com/rudionrails/yell" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><strong>Yell - Your Extensible Logging Library</strong></p>
+
+<p><a href="http://travis-ci.org/rudionrails/yell"><img src="https://secure.travis-ci.org/rudionrails/yell.png?branch=master" alt="Build Status"></a> 
+<a href="https://codeclimate.com/github/rudionrails/yell"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a></p>
 
 <p>Yell works and is tested with ruby 1.8.7, 1.9.x, jruby 1.8 and 1.9 mode, rubinius 1.8 and 1.9 as well as ree.</p>
+
+<p><strong>If you want to use Yell with Rails, then head over to <a href="https://github.com/rudionrails/yell-rails">yell-rails</a>.</strong></p>
 
 <h2>Installation</h2>
 
 <p>System wide:</p>
 
-<div class="highlight">
-<pre><span class="go">gem install yell</span>
-</pre>
-</div>
-
+<div class="highlight"><pre><span class="go">gem install yell</span>
+</pre></div>
 
 <p>Or in your Gemfile:</p>
 
-<div class="highlight">
-<pre><span class="n">gem</span> <span class="s2">"yell"</span>
-</pre>
-</div>
-
+<div class="highlight"><pre><span class="n">gem</span> <span class="s2">"yell"</span>
+</pre></div>
 
 <h2>Usage</h2>
 
 <p>On the basics, you can use Yell just like any other logging library with a more 
 sophisticated message formatter.</p>
 
-<div class="highlight">
-<pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="no">STDOUT</span>
+<div class="highlight"><pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="no">STDOUT</span>
 
 <span class="n">logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Hello World"</span>
 <span class="c1">#=&gt; "2012-02-29T09:30:00+01:00 [ INFO] 65784 : Hello World"</span>
 <span class="c1">#    ^                         ^       ^       ^</span>
 <span class="c1">#    ISO8601 Timestamp         Level   Pid     Message</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p>The strength of Yell, however, comes when using multiple adapters. The already built-in 
 ones are IO-based and require no further configuration. Also, there are additional ones 
@@ -81,14 +76,11 @@ on that - they are listed there.</p>
 <h5>Example: Notice messages go into <code>STDOUT</code> and error messages into <code>STDERR</code>
 </h5>
 
-<div class="highlight">
-<pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span>
+<div class="highlight"><pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span>
   <span class="n">l</span><span class="o">.</span><span class="n">adapter</span> <span class="no">STDOUT</span><span class="p">,</span> <span class="ss">:level</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:debug</span><span class="p">,</span> <span class="ss">:info</span><span class="p">,</span> <span class="ss">:warn</span><span class="o">]</span>
   <span class="n">l</span><span class="o">.</span><span class="n">adapter</span> <span class="no">STDERR</span><span class="p">,</span> <span class="ss">:level</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:fatal</span><span class="o">]</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 
 <h5>Example: Typical production Logger</h5>
 
@@ -96,31 +88,106 @@ on that - they are listed there.</p>
 below <code>:error</code> go into the 'production.log', whereas anything higher is written 
 into the 'error.log'.</p>
 
-<div class="highlight">
-<pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span>
+<div class="highlight"><pre><span class="n">logger</span> <span class="o">=</span> <span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span>
   <span class="n">l</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="ss">:info</span> <span class="c1"># will only pass :info and above to the adapters</span>
 
   <span class="n">l</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:datefile</span><span class="p">,</span> <span class="s1">'production.log'</span><span class="p">,</span> <span class="ss">:level</span> <span class="o">=&gt;</span> <span class="no">Yell</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">lte</span><span class="p">(</span><span class="ss">:warn</span><span class="p">)</span>
   <span class="n">l</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:datefile</span><span class="p">,</span> <span class="s1">'error.log'</span><span class="p">,</span> <span class="ss">:level</span> <span class="o">=&gt;</span> <span class="no">Yell</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">gte</span><span class="p">(</span><span class="ss">:error</span><span class="p">)</span>
 <span class="k">end</span>
-</pre>
-</div>
+</pre></div>
 
+<h3>But I'm used to Log4r and I don't want to move on</h3>
+
+<p>One of the really nice features of Log4r is its repository. The following example is 
+taken from the official Log4r <a href="http://log4r.rubyforge.org/manual.html#outofbox">documentation</a>.</p>
+
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'log4r'</span>
+<span class="kp">include</span> <span class="no">Log4r</span>
+
+<span class="c1"># create a logger named 'mylog' that logs to stdout</span>
+<span class="n">mylog</span> <span class="o">=</span> <span class="no">Logger</span><span class="o">.</span><span class="n">new</span> <span class="s1">'mylog'</span>
+<span class="n">mylog</span><span class="o">.</span><span class="n">outputters</span> <span class="o">=</span> <span class="no">Outputter</span><span class="o">.</span><span class="n">stdout</span>
+
+<span class="c1"># later in the code, you can get the logger back</span>
+<span class="no">Logger</span><span class="o">[</span><span class="s1">'mylog'</span><span class="o">]</span>
+</pre></div>
+
+<p>With Yell you can do the same thing with less:</p>
+
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'yell'</span>
+
+<span class="c1"># create a logger named 'mylog' that logs to stdout</span>
+<span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="ss">:stdout</span><span class="p">,</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">'mylog'</span>
+
+<span class="c1"># later in the code, you can get the logger back</span>
+<span class="no">Yell</span><span class="o">[</span><span class="s1">'mylog'</span><span class="o">]</span>
+</pre></div>
+
+<p>There is no need to define outputters separately and you don't have to taint 
+you global namespace with Yell's subclasses.</p>
+
+<h3>You want any class to have a logger?</h3>
+
+<p>Yell comes with a simple module: +Yell::Loggable+. Simply include this in a class and 
+you are good to go.</p>
+
+<div class="highlight"><pre><span class="c1"># Before you can use it, you will need to define a logger and </span>
+<span class="c1"># provide it with the `:name` of your class.</span>
+<span class="no">Yell</span><span class="o">.</span><span class="n">new</span> <span class="ss">:stdout</span><span class="p">,</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">'Foo'</span>
+
+<span class="k">class</span> <span class="nc">Foo</span>
+  <span class="kp">include</span> <span class="no">Yell</span><span class="o">::</span><span class="no">Loggable</span>
+<span class="k">end</span>
+
+<span class="c1"># Now you can log</span>
+<span class="no">Foo</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Hello World"</span>
+</pre></div>
+
+<p>It even works with class inheritance:</p>
+
+<div class="highlight"><pre><span class="c1"># Given the above example, we inherit from Foo</span>
+<span class="k">class</span> <span class="nc">Bar</span> <span class="o">&lt;</span> <span class="no">Foo</span>
+<span class="k">end</span>
+
+<span class="c1"># The logger will fallback to the Foo superclass</span>
+<span class="no">Bar</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Hello World"</span>
+</pre></div>
 
 <h2>Further Readings</h2>
 
 <p><a href="https://github.com/rudionrails/yell/wiki/101-setting-the-log-level">How To: Setting The Log Level</a><br><a href="https://github.com/rudionrails/yell/wiki/101-formatting-log-messages">How To: Formatting Log Messages</a><br><a href="https://github.com/rudionrails/yell/wiki/101-using-adapters">How To: Using Adapters</a><br><a href="https://github.com/rudionrails/yell/wiki/101-the-datefile-adapter">How To: The Datefile Adapter</a><br><a href="https://github.com/rudionrails/yell/wiki/101-different-adapters-for-different-log-levels">How To: Different Adapters for Different Log Levels</a>  </p>
 
+<h3>Additional Adapters</h3>
+
+<p><a href="https://github.com/rudionrails/yell/wiki/additional-adapters-syslog">Syslog</a><br><a href="https://github.com/rudionrails/yell/wiki/additional-adapters-gelf">Graylog2 (GELF)</a>  </p>
+
+<h3>Development</h3>
+
+<p><a href="https://github.com/rudionrails/yell/wiki/Writing-your-own-adapter">How To: Writing Your Own Adapter</a>  </p>
+
 <p>You can find further examples and additional adapters in the <a href="https://github.com/rudionrails/yell/wiki">wiki</a>.
 or have a look into the examples folder.</p>
 
-<p>Copyright © 2011-2012 Rudolf Schmidt, released under the MIT license.</p>
-      </section>
+<p>Copyright © 2011-2012 Rudolf Schmidt, released under the MIT license</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/rudionrails/yell/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/rudionrails/yell/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/rudionrails/yell"></a> is maintained by <a href="https://github.com/rudionrails">rudionrails</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/rudionrails">rudionrails</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+
+  
   </body>
 </html>
